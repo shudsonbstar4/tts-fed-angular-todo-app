@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html ng-app="myApp"> <!-- The ng-app directive (set as an HTML tag attribute) is used to initialize an angular module, which contains all the controller functions and factories unique to that module. In this case, we're using a single module as an app, but you can have multiple modules for different parts of you app. For example, if you have a social networking site, you can have a module for Posts with functions specific to that functionality and a PostsCtrl and factories for handling data related to posts, and likewise a module for Friends. Or you can separate modules out by sections of your site, so if you have an eCommerce store, you have have a Products module with ProductsCtrl, and a Shopping Cart module with ShoppingCartCtrl -->
+
+  <head>
+    <title>Angular Todo App</title>
+    <meta charset="UTF-8">
+    <link data-require="bootstrap-css@*" data-semver="3.1.1" rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" />
+    <script data-require="angular.js@*" data-semver="1.4.0-rc.1" src="https://code.angularjs.org/1.4.0-rc.1/angular.js"></script> <!-- Include the angular code base; this will contain all the JS functions you need to make controllers and factories work as expected -->
+    <link rel="stylesheet" href="style.css" />
+    <script src="script.js"></script>
+  </head>
+
+  <body ng-controller="MainCtrl"> <!-- ng-controller is another HTML tag attribute directive used to dictate what part of the webpage is affected by the controller function. Typically speaking, you want one controller to wrap around the main content for each page. Also note that you must have ng-controller inside of the HTML tag with ng-app -->
+    <nav class="nav navbar navbar-inverse navbar-fixed"> <!-- navbar-inverse sets the color of the navbar to #1a1a1a - a dark gray. navbar-fixed sets position:fixed on the navbar and means it will stay at the top of the vieport even when scrolling; it follows you -->
+      <div class="container">
+        <div class="row">
+          <div class="navbar-left">
+            <a href="#" class="navbar-brand">Logo</a>
+          </div>
+
+          <!-- REAL TIME SEARCH ON THE TODO LIST -->
+          <div class="navbar-right">
+            <form class="navbar-form" role="form">
+              <div class="form-group">
+                <label for="search" class="sr-only">Search</label> 
+                <input type="text" id="search" name="search" placeholder="Search now!" class="form-control" ng-model="query" /> <!-- ng-model is an Angular directive which will take the value in the input (or select or whatever control it's put on) and ties it to a variable with the same name as the string passed to it. Models do something called 'double binding', which means that if we reference this variable anywhere else on the HTML, it will evaluate the value on the control where the model is declared. You can also pass that variable through a function to the controller to manipulate or save the input value. -->
+                <button class="btn btn-default"><i class="glyphicon glyphicon-search">
+                  </i> <span class="sr-only">Search now!</span> <!-- sr-only class sets the display to none - it's only viewable to screen readers so they know what the button is for -->
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </nav>
+    <div class="container">
+      <div class="row">
+        <!--ONE-->
+        <h1>To Do List</h1>
+      </div>
+      <hr />
+      <!--TWO-->
+      <table class="table table-bordered table-striped">
+        <thead>
+          <tr>
+            <th>Task to do:</th>
+            <th>Date due:</th>
+            <th>Remove</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="item in items | filter: query"> <!-- ng-repeat is an Angular directive which takes the HTML tag it's applied on as well as any nested HTML and copies it for each item of the array. After the pipe, we have a filter which is tied to ng-model on the search input, which will only show us list items where the text matches the text in the input -->
+            <td class="col-md-7 col-sm-7 col-xs-7">
+              <!-- ITEM NAME HERE -->
+              {{item.name}}
+            </td>
+            <td class="col-md-4 col-sm-4 col-xs-4">
+              <!-- ITEM DATE HERE -->
+              {{item.date}}
+            </td>
+            <!--FIVE-->
+            <td class="col-md-1 col-sm-1 col-xs-1">
+              <button type="button" class="btn btn-danger" ng-click="deleteItem($index)">x</button> <!-- ng-click is a directive similar to JS's onclick function; the function passed in will be in your controller to handle any parameters or code in it. In this case, we're passing the index that the item is found out in the items array, so we can splice it from the array. $index is a default value created by Angular for each array item whenever ng-repeat generates HTML for an array -->
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <!--FOUR-->
+      <form class="form form-inline" ng-submit="addItem(item)"> <!-- ng-submit is a directive which takes a function passed to it, and only fires when a form is submitted. It's important to note ng-submit will only work on the form tag and only when you have a button inside the form with type="submit" on it. In this case, we're creating an object on the DOM using ng-model and dot notation, setting the name and the date on the item object. That object will then be passed whole to the controller through ng-submit.
+
+      If you want to pass data without a form, you would use ng-click on the button. -->
+        <fieldset>
+          <legend>
+            Add new todo item
+          </legend>
+          <div class="form-group">
+            <label class="control-label" for="todo_name">Enter todo:</label>
+            <input type="text" id="todo_name" name="todo_name" class="form-control" ng-model="item.name" /> <!-- When you have input fields that are related to the same object (in this case, a todo item), then use dot notation to set the value as a property on a common object. It then will associate those values in a common place and makes for better storing in your database. -->
+          </div>
+          <div class="form-group">
+            <label class="control-label" for="todo_date">Enter date due:</label>
+            <input type="text" id="todo_date" name="todo_date" class="form-control" ng-model="item.date" />
+          </div>
+          <button type="submit" class="btn btn-success">Add Todo</button>
+        </fieldset>
+      </form>
+    </div>
+  </body>
+
+</html>

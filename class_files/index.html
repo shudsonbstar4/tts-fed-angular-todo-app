@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <title>Angular Todo App</title>
+    <meta charset="UTF-8">
+    <link data-require="bootstrap-css@*" data-semver="3.1.1" rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" />
+    <script data-require="angular.js@*" data-semver="1.4.0-rc.1" src="https://code.angularjs.org/1.4.0-rc.1/angular.js"></script>
+    <link rel="stylesheet" href="style.css" />
+    <script src="script.js"></script>
+  </head>
+
+  <body>
+    <nav class="nav navbar navbar-inverse navbar-fixed">
+      <div class="container">
+        <div class="row">
+          <div class="navbar-left">
+            <a href="#" class="navbar-brand">Logo</a>
+          </div>
+          <!--THREE-->
+          <div class="navbar-right">
+            <form class="navbar-form" role="form">
+              <div class="form-group">
+                <label for="search" class="sr-only">Search</label> <input type="text" id="search" name="search" placeholder="Search now!" class="form-control" /> <button class="btn btn-default"><i class="glyphicon glyphicon-search"></i> <span class="sr-only">Search now!</span></button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </nav>
+    <div class="container">
+      <div class="row">
+        <!--ONE-->
+        <h1>To Do List</h1>
+      </div>
+      <hr />
+      <!--TWO-->
+      <table class="table table-bordered table-striped">
+        <thead>
+          <tr>
+            <th>Task to do:</th>
+            <th>Date due:</th>
+            <th>Remove</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="col-md-7 col-sm-7 col-xs-7">
+            </td>
+            <td class="col-md-4 col-sm-4 col-xs-4">
+            </td>
+            <!--FIVE-->
+            <td class="col-md-1 col-sm-1 col-xs-1">
+              <button type="button" class="btn btn-danger">x</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <!--FOUR-->
+      <form class="form form-inline">
+        <fieldset>
+          <legend>
+            Add new todo item
+          </legend>
+          <div class="form-group">
+            <label class="control-label" for="todo_name">Enter todo:</label>
+            <input type="text" id="todo_name" name="todo_name" class="form-control" />
+          </div>
+          <div class="form-group">
+            <label class="control-label" for="todo_date">Enter date due:</label>
+            <input type="text" id="todo_date" name="todo_date" class="form-control" />
+          </div>
+          <button type="submit" class="btn btn-success">Add Todo</button>
+        </fieldset>
+      </form>
+    </div>
+  </body>
+
+</html>
